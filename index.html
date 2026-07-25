@@ -4,194 +4,150 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>The Storey Studio — Katrina Storey</title>
-<meta name="description" content="The portfolio of Katrina Storey — brand and marketing communications, told like a fairy tale." />
+<meta name="description" content="The portfolio of Katrina Storey — brand and marketing communications." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0710'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' font-style='italic' text-anchor='middle' fill='%23E9C36B'%3ES%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --moss:#4A5D43;
-    --moss-deep:#33422F;
-    --gold:#D4A94E;
-    --gold-soft:#E6C87E;
-    --rose:#C98B8B;
-    --aubergine:#3B2A3A;
-    --parchment:#E7D4B0;
-    --parchment-deep:#D8C299;
-    --ink:#2E2620;
+    --night:#0B0710;
+    --night-2:#140C1B;
+    --teal:#2FD3D0;
+    --orchid:#C838A8;
+    --gold:#E9C36B;
+    --gold-soft:#F3DDA0;
+    --rose:#E4A8C8;
+    --mist:#E7DCEC;
+    --muted:#A98FB0;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    background:
-      radial-gradient(130% 100% at 50% -10%, #F2E4C6 0%, var(--parchment) 42%, var(--parchment-deep) 100%);
-    color:var(--ink);
-    font-family:'EB Garamond',serif;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    background:var(--night);
+    color:var(--mist);
+    font-family:'EB Garamond',serif;line-height:1.7;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;
   }
-  ::selection{background:var(--gold);color:var(--aubergine)}
+  ::selection{background:var(--orchid);color:#fff}
 
-  /* ---- sunbeam wash over everything ---- */
-  .sunbeam{
-    position:fixed;inset:0;z-index:0;pointer-events:none;
+  /* atmospheric glows — jewel-tone light blooming from the dark */
+  .aura{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .aura::before,.aura::after{content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+  .aura::before{
+    width:52vw;height:52vw;left:-12vw;top:-10vh;
+    background:radial-gradient(circle,var(--teal),transparent 68%);opacity:.32;
+  }
+  .aura::after{
+    width:50vw;height:50vw;right:-14vw;bottom:-16vh;
+    background:radial-gradient(circle,var(--orchid),transparent 66%);opacity:.34;
+  }
+  .aura .warm{
+    position:absolute;width:44vw;height:44vw;left:52%;top:32%;
+    transform:translate(-50%,-50%);border-radius:50%;filter:blur(100px);
+    background:radial-gradient(circle,var(--gold),transparent 60%);opacity:.14;
+  }
+  .grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
     background:
-      conic-gradient(from 210deg at 72% -8%, rgba(255,240,205,.32), transparent 24%, transparent 76%, rgba(255,240,205,.22)),
-      radial-gradient(55% 45% at 78% 0%, rgba(212,169,78,.2), transparent 62%);
-    mix-blend-mode:screen;
+      radial-gradient(1px 1px at 20% 30%, rgba(233,195,107,.5), transparent),
+      radial-gradient(1px 1px at 70% 60%, rgba(47,211,208,.4), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(200,56,168,.35), transparent);
+    background-size:180px 180px,240px 240px,300px 300px;
   }
 
-  /* ---- fireflies ---- */
-  .fireflies{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  /* fireflies / fairy lights */
+  .fireflies{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:hidden}
   .fly{
-    position:absolute;width:5px;height:5px;border-radius:50%;
-    background:radial-gradient(circle,var(--gold-soft),rgba(230,200,126,0) 70%);
-    box-shadow:0 0 8px 2px rgba(230,200,126,.7);
+    position:absolute;width:7px;height:7px;border-radius:50%;
+    background:radial-gradient(circle,#FFF6DC 0%,var(--gold-soft) 42%,rgba(233,195,107,0) 72%);
+    box-shadow:0 0 12px 4px rgba(233,195,107,.9), 0 0 26px 9px rgba(233,195,107,.35);
     opacity:0;
   }
   @keyframes flit{
     0%{opacity:0;transform:translate(0,0) scale(.7)}
-    15%{opacity:.9}
-    50%{opacity:.5;transform:translate(var(--dx,20px),var(--dy,-30px)) scale(1.1)}
-    85%{opacity:.8}
+    15%{opacity:1}
+    50%{opacity:.6;transform:translate(var(--dx,20px),var(--dy,-30px)) scale(1.15)}
+    85%{opacity:.95}
     100%{opacity:0;transform:translate(calc(var(--dx,20px)*1.6),calc(var(--dy,-30px)*1.8)) scale(.6)}
   }
 
-  /* ---------- nav ---------- */
-  .nav{
-    position:absolute;top:0;left:0;right:0;z-index:10;
-    display:flex;justify-content:space-between;align-items:center;
-    padding:2rem clamp(1.5rem,5vw,4rem);
-  }
-  .nav .mark{font-family:'Cormorant',serif;font-weight:500;font-size:1.2rem;letter-spacing:.04em;color:var(--moss-deep)}
+  /* nav */
+  .nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:2rem clamp(1.5rem,5vw,4rem)}
+  .nav .mark{font-family:'Cormorant',serif;font-weight:500;font-size:1.25rem;letter-spacing:.05em;color:var(--mist)}
   .nav .mark em{font-style:italic;color:var(--gold)}
-  .nav .nav-links{display:flex;align-items:center;gap:1.6rem}
-  .nav a{
-    color:var(--moss-deep);text-decoration:none;font-family:'Cormorant',serif;
-    font-size:1rem;letter-spacing:.18em;text-transform:uppercase;opacity:.8;transition:opacity .25s;
-  }
+  .nav-links{display:flex;align-items:center;gap:1.6rem}
+  .nav a{color:var(--mist);text-decoration:none;font-family:'Cormorant',serif;font-size:1.05rem;letter-spacing:.18em;text-transform:uppercase;opacity:.75;transition:opacity .25s}
   .nav a:hover{opacity:1}
   .nav a.linkedin-btn{
-    opacity:1;border:1px solid var(--moss);border-radius:100px;
-    padding:.4rem 1.1rem;color:var(--moss);letter-spacing:.14em;
-    transition:background .25s,color .25s,transform .25s;
+    opacity:1;border:1px solid rgba(233,195,107,.55);border-radius:100px;
+    padding:.42rem 1.2rem;color:var(--gold);letter-spacing:.14em;
+    transition:background .25s,color .25s,transform .25s,box-shadow .25s;
   }
-  .nav a.linkedin-btn:hover{background:var(--moss);color:var(--parchment);transform:translateY(-1px)}
+  .nav a.linkedin-btn:hover{background:var(--gold);color:var(--night);transform:translateY(-1px);box-shadow:0 0 20px -4px rgba(233,195,107,.7)}
 
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative;z-index:2;min-height:100svh;
-    display:grid;grid-template-columns:1.05fr .95fr;align-items:center;
-    gap:clamp(2rem,5vw,5rem);
-    padding:6rem clamp(1.5rem,5vw,4rem) 3rem;
-    max-width:1360px;margin:0 auto;
-  }
+  /* hero */
+  .hero{position:relative;z-index:2;min-height:100svh;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(2rem,5vw,5rem);padding:6rem clamp(1.5rem,5vw,4rem) 3rem;max-width:1360px;margin:0 auto}
   .hero-copy{max-width:34rem}
-  .eyebrow{
-    font-family:'Cormorant',serif;font-size:1.05rem;letter-spacing:.24em;
-    text-transform:uppercase;color:var(--moss);margin-bottom:1.4rem;
-    display:flex;align-items:center;gap:.8rem;opacity:0;animation:rise 1.2s ease-out 1.8s forwards;
-  }
-  .eyebrow::before{content:"";width:2.4rem;height:1px;background:var(--gold);display:inline-block}
+  .eyebrow{font-family:'Cormorant',serif;font-size:1.05rem;letter-spacing:.26em;text-transform:uppercase;color:var(--teal);margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:rise 1.2s ease-out 1.8s forwards}
+  .eyebrow::before{content:"";width:2.4rem;height:1px;background:var(--teal);display:inline-block;box-shadow:0 0 8px var(--teal)}
 
-  .name{
-    font-family:'Cormorant',serif;font-weight:300;
-    font-size:clamp(3.6rem,9.5vw,7rem);line-height:.92;letter-spacing:.01em;
-    margin-bottom:1.2rem;color:var(--aubergine);
-  }
-  .name .line{display:block;opacity:0;filter:blur(10px);transform:translateY(14px)}
-  .name .l1{animation:bloom 1.6s cubic-bezier(.2,.7,.2,1) 2.2s forwards}
-  .name .l2{animation:bloom 1.6s cubic-bezier(.2,.7,.2,1) 2.6s forwards;position:relative;width:max-content}
-  .name .l2 em{font-style:italic;font-weight:400;color:var(--moss)}
-  /* illuminated drop-cap glow behind the S */
-  .name .glow{position:relative}
-  .name .glow::before{
-    content:"";position:absolute;left:-8%;top:8%;width:1.4em;height:1.4em;
-    background:radial-gradient(circle,rgba(212,169,78,.55),transparent 68%);
-    filter:blur(14px);z-index:-1;opacity:0;animation:rise 2s ease-out 2.8s forwards;
-  }
-  .name .l2::after{
-    content:"";position:absolute;left:0;bottom:.02em;height:2px;width:100%;
-    background:linear-gradient(90deg,var(--gold),var(--rose),transparent);
-    transform:scaleX(0);transform-origin:left;animation:draw 1.3s cubic-bezier(.7,0,.2,1) 3.6s forwards;
-  }
+  .name{font-family:'Cormorant',serif;font-weight:300;font-size:clamp(3.6rem,9.5vw,7rem);line-height:.92;letter-spacing:.01em;margin-bottom:1.2rem;color:#fff}
+  .name .line{display:block;opacity:0;filter:blur(12px);transform:translateY(14px)}
+  .name .l1{animation:bloom 1.7s cubic-bezier(.2,.7,.2,1) 2.2s forwards}
+  .name .l2{animation:bloom 1.7s cubic-bezier(.2,.7,.2,1) 2.6s forwards;position:relative;width:max-content}
+  .name .l2 em{font-style:italic;font-weight:400;
+    background:linear-gradient(120deg,var(--gold),var(--gold-soft));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  /* the name glows like the STORIES sign */
+  .name .glow-text{text-shadow:0 0 24px rgba(233,195,107,.55),0 0 48px rgba(233,195,107,.25)}
+  .name .l2::after{content:"";position:absolute;left:0;bottom:.02em;height:2px;width:100%;background:linear-gradient(90deg,var(--gold),var(--orchid),transparent);box-shadow:0 0 12px rgba(233,195,107,.6);transform:scaleX(0);transform-origin:left;animation:draw 1.3s cubic-bezier(.7,0,.2,1) 3.6s forwards}
   @keyframes bloom{to{opacity:1;filter:blur(0);transform:translateY(0)}}
   @keyframes draw{to{transform:scaleX(1)}}
   @keyframes rise{to{opacity:1}}
 
-  .tagline{
-    font-family:'Cormorant',serif;font-style:italic;font-weight:500;
-    font-size:clamp(1.3rem,2.8vw,1.7rem);color:var(--moss);margin-bottom:1.4rem;
-    opacity:0;animation:rise 1.2s ease-out 2s forwards;
-  }
-  .intro{
-    font-size:1.12rem;color:#5a4b3d;max-width:30rem;margin-bottom:2.4rem;
-    opacity:0;animation:rise 1.2s ease-out 2.2s forwards;
-  }
+  .tagline{font-family:'Cormorant',serif;font-style:italic;font-weight:500;font-size:clamp(1.3rem,2.8vw,1.7rem);color:var(--rose);margin-bottom:1.4rem;opacity:0;animation:rise 1.2s ease-out 2s forwards}
+  .intro{font-size:1.12rem;color:var(--muted);max-width:30rem;margin-bottom:2.4rem;opacity:0;animation:rise 1.2s ease-out 2.2s forwards}
   .cta-row{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:rise 1.2s ease-out 2.4s forwards}
-  .btn{
-    font-family:'Cormorant',serif;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;
-    padding:.8rem 1.9rem;border-radius:100px;text-decoration:none;
-    transition:transform .25s,background .25s,color .25s,box-shadow .25s;display:inline-block;
-  }
-  .btn-primary{background:var(--moss);color:var(--parchment);box-shadow:0 8px 22px -10px rgba(74,93,67,.7)}
-  .btn-primary:hover{background:var(--moss-deep);transform:translateY(-2px)}
-  .btn-ghost{border:1px solid var(--moss);color:var(--moss)}
-  .btn-ghost:hover{background:var(--moss);color:var(--parchment);transform:translateY(-2px)}
+  .btn{font-family:'Cormorant',serif;font-size:1.05rem;letter-spacing:.14em;text-transform:uppercase;padding:.8rem 1.9rem;border-radius:100px;text-decoration:none;transition:transform .25s,background .25s,color .25s,box-shadow .25s;display:inline-block}
+  .btn-primary{background:linear-gradient(120deg,var(--gold),var(--gold-soft));color:var(--night);box-shadow:0 0 24px -6px rgba(233,195,107,.6)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 32px -4px rgba(233,195,107,.85)}
+  .btn-ghost{border:1px solid var(--teal);color:var(--teal)}
+  .btn-ghost:hover{background:var(--teal);color:var(--night);transform:translateY(-2px);box-shadow:0 0 22px -4px rgba(47,211,208,.7)}
 
-  /* ---------- ornate portrait ---------- */
-  .portrait-wrap{position:relative;justify-self:center;opacity:0;animation:rise 1.4s ease-out 1.4s forwards}
-  .portrait-frame{
-    position:relative;width:clamp(210px,27vw,330px);padding:14px;
-    background:
-      linear-gradient(135deg,var(--gold) 0%,var(--gold-soft) 25%,#B98C3A 50%,var(--gold-soft) 75%,var(--gold) 100%);
+  /* portrait */
+  .portrait-wrap{position:relative;justself:center;justify-self:center;opacity:0;animation:rise 1.4s ease-out 1.4s forwards}
+  .portrait-frame{position:relative;width:clamp(210px,27vw,330px);padding:14px;
+    background:linear-gradient(135deg,var(--gold) 0%,var(--gold-soft) 25%,#B98C3A 50%,var(--gold-soft) 75%,var(--gold) 100%);
     border-radius:50% 50% 46% 46% / 44% 44% 56% 56%;
-    box-shadow:0 26px 55px -22px rgba(59,42,58,.55), inset 0 0 0 2px rgba(255,255,255,.25);
-  }
-  .portrait{
-    position:relative;width:100%;aspect-ratio:1114/1411;overflow:hidden;
-    border-radius:50% 50% 46% 46% / 44% 44% 56% 56%;
-    box-shadow:inset 0 0 0 3px rgba(46,38,32,.15);
-  }
-  .portrait img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.02) contrast(1.02)}
-  /* soft ethereal light over the portrait */
-  .portrait::after{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(70% 50% at 20% 0%, rgba(255,244,214,.45), transparent 60%);
-    mix-blend-mode:screen;pointer-events:none;
-  }
-  .locket{
-    position:absolute;left:50%;top:-22px;transform:translateX(-50%);
-    width:26px;height:26px;border-radius:50%;
-    background:radial-gradient(circle at 35% 30%,var(--gold-soft),#A97F2E);
-    box-shadow:0 4px 10px -3px rgba(59,42,58,.6);
-  }
-  .badge{
-    position:absolute;right:-6%;bottom:8%;background:var(--parchment);
-    font-family:'Cormorant',serif;font-style:italic;font-size:1.05rem;color:var(--moss);
-    padding:.55rem 1.2rem;border-radius:100px;border:1px solid rgba(212,169,78,.5);
-    box-shadow:0 12px 26px -12px rgba(59,42,58,.4);
-  }
+    box-shadow:0 0 50px -8px rgba(233,195,107,.5), 0 26px 55px -22px rgba(0,0,0,.8), inset 0 0 0 2px rgba(255,255,255,.25);
+    animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .portrait{position:relative;width:100%;aspect-ratio:1114/1411;overflow:hidden;border-radius:50% 50% 46% 46% / 44% 44% 56% 56%}
+  .portrait img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.03)}
+  .portrait::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 50% at 22% 0%, rgba(233,195,107,.28), transparent 60%);mix-blend-mode:screen;pointer-events:none}
+  .locket{position:absolute;left:50%;top:-22px;transform:translateX(-50%);width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--gold-soft),#A97F2E);box-shadow:0 0 16px rgba(233,195,107,.8)}
+  .badge{position:absolute;right:-6%;bottom:8%;background:rgba(20,12,27,.92);font-family:'Cormorant',serif;font-style:italic;font-size:1.05rem;color:var(--gold);padding:.55rem 1.2rem;border-radius:100px;border:1px solid rgba(233,195,107,.5);box-shadow:0 0 22px -6px rgba(233,195,107,.5)}
 
-  /* ---------- work ---------- */
+  /* about strip */
+  .about{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:2rem clamp(1.5rem,5vw,4rem) 1rem;text-align:center}
+  .about .ornament{color:var(--gold);letter-spacing:.4rem;font-size:1.1rem;margin-bottom:1.2rem;text-shadow:0 0 14px rgba(233,195,107,.45)}
+  .about p{font-family:'Cormorant',serif;font-size:clamp(1.35rem,3vw,1.85rem);line-height:1.5;color:var(--mist);font-weight:300}
+  .about p em{font-style:italic;color:var(--gold-soft)}
+
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* work */
   .work{position:relative;z-index:2;max-width:900px;margin:0 auto;padding:5rem clamp(1.5rem,5vw,4rem) 6rem;text-align:center}
-  .work-head h2{font-family:'Cormorant',serif;font-weight:400;font-size:clamp(2rem,4.5vw,3rem);color:var(--aubergine);margin-bottom:.5rem}
-  .work-head .flourish{color:var(--gold);font-size:1.4rem;letter-spacing:.5rem;margin-bottom:.8rem}
-  .work-head p{font-family:'Cormorant',serif;font-size:1.05rem;letter-spacing:.2em;text-transform:uppercase;color:var(--moss);margin-bottom:3rem}
-  .soon{
-    font-family:'Cormorant',serif;font-style:italic;font-weight:400;
-    font-size:clamp(1.7rem,4vw,2.6rem);color:var(--moss);
-    padding:4rem 1.5rem;border-radius:20px;
-    border:1px solid rgba(212,169,78,.45);
-    background:linear-gradient(160deg,rgba(234,223,200,.6),rgba(251,245,233,.4));
-  }
-  .soon small{display:block;font-family:'EB Garamond';font-style:italic;font-size:1rem;color:#7a6b58;margin-top:.8rem;letter-spacing:.02em}
+  .work-head .flourish{color:var(--gold);font-size:1.4rem;letter-spacing:.5rem;margin-bottom:.8rem;text-shadow:0 0 16px rgba(233,195,107,.5)}
+  .work-head h2{font-family:'Cormorant',serif;font-weight:400;font-size:clamp(2rem,4.5vw,3rem);color:#fff;margin-bottom:.5rem}
+  .work-head p{font-family:'Cormorant',serif;font-size:1.05rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:3rem}
+  .soon{font-family:'Cormorant',serif;font-style:italic;font-weight:400;font-size:clamp(1.7rem,4vw,2.6rem);color:var(--gold-soft);padding:4rem 1.5rem;border-radius:20px;border:1px solid rgba(233,195,107,.28);background:linear-gradient(160deg,rgba(47,211,208,.06),rgba(200,56,168,.06));text-shadow:0 0 20px rgba(233,195,107,.3)}
+  .soon small{display:block;font-family:'EB Garamond';font-style:italic;font-size:1rem;color:var(--muted);margin-top:.8rem;letter-spacing:.02em;text-shadow:none}
 
-  /* ---------- footer ---------- */
-  footer{position:relative;z-index:2;text-align:center;padding:3rem 1.5rem;border-top:1px solid rgba(74,93,67,.18)}
-  footer .mark{font-family:'Cormorant',serif;font-style:italic;font-size:1.3rem;color:var(--moss)}
-  footer p{font-size:.95rem;color:#7a6b58;margin-top:.5rem;letter-spacing:.04em}
+  footer{position:relative;z-index:2;text-align:center;padding:3rem 1.5rem;border-top:1px solid rgba(233,195,107,.15)}
+  footer .mark{font-family:'Cormorant',serif;font-style:italic;font-size:1.3rem;color:var(--gold)}
+  footer p{font-size:.95rem;color:var(--muted);margin-top:.5rem;letter-spacing:.04em}
 
   @media (max-width:820px){
     .hero{grid-template-columns:1fr;text-align:center;padding-top:7rem;gap:3rem}
@@ -207,12 +163,14 @@
     .name .line{opacity:1;filter:none;transform:none}
     .eyebrow,.tagline,.intro,.cta-row,.portrait-wrap{opacity:1}
     .name .l2::after{transform:scaleX(1)}
+    .portrait-frame{animation:none!important}
     .fly{display:none}
   }
 </style>
 </head>
 <body>
-  <div class="sunbeam" aria-hidden="true"></div>
+  <div class="aura" aria-hidden="true"><div class="warm"></div></div>
+  <div class="grain" aria-hidden="true"></div>
   <div class="fireflies" id="fireflies" aria-hidden="true"></div>
 
   <nav class="nav">
@@ -228,7 +186,7 @@
       <div class="eyebrow">Brand &amp; Marketing Communications</div>
       <h1 class="name">
         <span class="line l1">Katrina</span>
-        <span class="line l2"><span class="glow">S</span>to<em>rey</em></span>
+        <span class="line l2 glow-text">Sto<em>rey</em></span>
       </h1>
       <p class="tagline">The Storey Studio</p>
       <p class="intro">
@@ -244,24 +202,28 @@
     <div class="portrait-wrap">
       <div class="portrait-frame">
         <div class="locket"></div>
-        <div class="portrait">
-          <img src="headshot.jpg" alt="Katrina Storey" />
-        </div>
+        <div class="portrait"><img src="headshot.jpg" alt="Katrina Storey" /></div>
       </div>
       <div class="badge">Once upon a time…</div>
     </div>
   </header>
 
+  <section class="about reveal">
+    <div class="ornament">✦ ✦ ✦</div>
+    <p>
+      I'm a brand and marketing communications specialist who believes every
+      brand carries a <em>story worth telling</em>. From strategy to design, I help
+      them find their voice and share it with the world.
+    </p>
+  </section>
+
   <section class="work" id="work">
-    <div class="work-head">
+    <div class="work-head reveal">
       <div class="flourish">❧</div>
       <h2>Selected Work</h2>
       <p>Campaigns &amp; Brand Design</p>
     </div>
-    <div class="soon">
-      Coming soon…
-      <small>New tales are being written.</small>
-    </div>
+    <div class="soon reveal">Coming soon…<small>New tales are being written.</small></div>
   </section>
 
   <footer>
@@ -270,96 +232,45 @@
   </footer>
 
   <script>
+    // scroll reveal
     (function(){
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const layer = document.getElementById('fireflies');
-      const nameEl = document.querySelector('.name');
-      if(!layer || !nameEl) return;
-
+      const els=document.querySelectorAll('.reveal');
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        els.forEach(e=>e.classList.add('in'));return;
+      }
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+      },{threshold:.2});
+      els.forEach(e=>io.observe(e));
+    })();
+  </script>
+  <script>
+    (function(){
+      const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const layer=document.getElementById('fireflies');
+      const nameEl=document.querySelector('.name');
+      if(!layer||!nameEl) return;
       if(reduce){
-        // static: a few gentle glows, no motion
-        for(let i=0;i<8;i++){
-          const f=document.createElement('span');
-          f.className='fly';
-          f.style.left=(10+Math.random()*80)+'vw';
-          f.style.top=(30+Math.random()*50)+'vh';
-          f.style.opacity=.6;
-          layer.appendChild(f);
-        }
+        for(let i=0;i<10;i++){const f=document.createElement('span');f.className='fly';f.style.left=(10+Math.random()*80)+'vw';f.style.top=(20+Math.random()*60)+'vh';f.style.opacity=.7;layer.appendChild(f);}
         return;
       }
-
-      const N = 26;
-      const flies = [];
-      const rect = nameEl.getBoundingClientRect();
-      // target zone = around the name
-      const targetX = rect.left + rect.width*0.42;
-      const targetY = rect.top + rect.height*0.5;
-
+      const N=40, flies=[];
+      const rect=nameEl.getBoundingClientRect();
+      const tX=rect.left+rect.width*0.42, tY=rect.top+rect.height*0.5;
       for(let i=0;i<N;i++){
-        const f=document.createElement('span');
-        f.className='fly';
-        // start scattered across the page
-        const sx = Math.random()*window.innerWidth;
-        const sy = Math.random()*window.innerHeight;
-        f.style.left='0px'; f.style.top='0px';
-        f.style.transform=`translate(${sx}px,${sy}px)`;
-        f.style.opacity='0';
-        layer.appendChild(f);
-        flies.push({el:f, sx, sy});
+        const f=document.createElement('span');f.className='fly';
+        const sx=Math.random()*innerWidth, sy=Math.random()*innerHeight;
+        f.style.left='0px';f.style.top='0px';f.style.transform=`translate(${sx}px,${sy}px)`;f.style.opacity='0';
+        layer.appendChild(f);flies.push({el:f});
       }
-
-      // phase 1: fade in scattered
-      requestAnimationFrame(()=>{
-        flies.forEach((o,i)=>{
-          o.el.style.transition='opacity 1s ease';
-          o.el.style.transitionDelay=(Math.random()*0.6)+'s';
-          o.el.style.opacity=(0.6+Math.random()*0.4).toFixed(2);
-        });
-      });
-
-      // phase 2: gather toward the name (~0.9s in)
+      requestAnimationFrame(()=>flies.forEach(o=>{o.el.style.transition='opacity 1s ease';o.el.style.transitionDelay=(Math.random()*.6)+'s';o.el.style.opacity=(.7+Math.random()*.3).toFixed(2);}));
+      setTimeout(()=>flies.forEach(o=>{const jx=tX+(Math.random()*rect.width-rect.width/2)*.9,jy=tY+(Math.random()*rect.height-rect.height/2)*.9;o.gx=jx;o.gy=jy;o.el.style.transition='transform 1.3s cubic-bezier(.35,.6,.3,1),opacity .6s ease';o.el.style.transform=`translate(${jx}px,${jy}px) scale(1.3)`;o.el.style.opacity='1';}),900);
+      setTimeout(()=>flies.forEach(o=>{const a=Math.random()*Math.PI*2,d=120+Math.random()*260,ex=o.gx+Math.cos(a)*d,ey=o.gy+Math.sin(a)*d;o.el.style.transition='transform 1.6s cubic-bezier(.2,.5,.2,1),opacity 1.6s ease';o.el.style.transform=`translate(${ex}px,${ey}px) scale(.85)`;o.el.style.opacity=(.4+Math.random()*.4).toFixed(2);}),2300);
       setTimeout(()=>{
-        flies.forEach((o,i)=>{
-          const jx = targetX + (Math.random()*rect.width - rect.width/2)*0.9;
-          const jy = targetY + (Math.random()*rect.height - rect.height/2)*0.9;
-          o.gx = jx; o.gy = jy;
-          o.el.style.transition='transform 1.3s cubic-bezier(.35,.6,.3,1), opacity .6s ease';
-          o.el.style.transform=`translate(${jx}px,${jy}px) scale(1.25)`;
-          o.el.style.opacity='0.95';
-        });
-      }, 900);
-
-      // phase 3: scatter outward as name blooms (~2.3s in)
-      setTimeout(()=>{
-        flies.forEach((o)=>{
-          const ang = Math.random()*Math.PI*2;
-          const dist = 120 + Math.random()*260;
-          const ex = o.gx + Math.cos(ang)*dist;
-          const ey = o.gy + Math.sin(ang)*dist;
-          o.ex = ex; o.ey = ey;
-          o.el.style.transition='transform 1.6s cubic-bezier(.2,.5,.2,1), opacity 1.6s ease';
-          o.el.style.transform=`translate(${ex}px,${ey}px) scale(.8)`;
-          o.el.style.opacity=(0.3+Math.random()*0.4).toFixed(2);
-        });
-      }, 2300);
-
-      // phase 4: hand off to gentle ambient drift (~4s in)
-      setTimeout(()=>{
-        flies.forEach((o,i)=>{
-          o.el.style.transition='none';
-          // re-anchor using left/top so keyframe drift works cleanly
-          const m = new DOMMatrixReadOnly(getComputedStyle(o.el).transform);
-          o.el.style.left = m.m41+'px';
-          o.el.style.top = m.m42+'px';
-          o.el.style.transform='none';
-          o.el.style.setProperty('--dx',(Math.random()*60-20)+'px');
-          o.el.style.setProperty('--dy',(-40-Math.random()*60)+'px');
-          const dur=6+Math.random()*7, delay=Math.random()*3;
-          void o.el.offsetWidth; // reflow
-          o.el.style.animation=`flit ${dur}s ease-in-out ${delay}s infinite`;
-        });
-      }, 4000);
+        const pageH=document.body.scrollHeight;
+        flies.forEach(o=>{o.el.style.transition='none';o.el.style.transform='none';o.el.style.left=(Math.random()*100)+'vw';o.el.style.top=(Math.random()*pageH)+'px';o.el.style.setProperty('--dx',(Math.random()*80-30)+'px');o.el.style.setProperty('--dy',(-50-Math.random()*80)+'px');const dur=7+Math.random()*8,delay=Math.random()*4;void o.el.offsetWidth;o.el.style.animation=`flit ${dur}s ease-in-out ${delay}s infinite`;});
+        for(let i=0;i<24;i++){const f=document.createElement('span');f.className='fly';f.style.left=(Math.random()*100)+'vw';f.style.top=(Math.random()*pageH)+'px';f.style.opacity=(.6+Math.random()*.4).toFixed(2);f.style.setProperty('--dx',(Math.random()*80-30)+'px');f.style.setProperty('--dy',(-50-Math.random()*80)+'px');const dur=7+Math.random()*8,delay=Math.random()*6;f.style.animation=`flit ${dur}s ease-in-out ${delay}s infinite`;layer.appendChild(f);}
+      },4000);
     })();
   </script>
 </body>
