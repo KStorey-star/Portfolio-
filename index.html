@@ -205,6 +205,17 @@
   .contact > p em{font-family:'Cormorant',serif;font-style:italic;color:var(--gold-soft)}
   .contact-row{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.4rem}
   .contact-note{font-family:'Cormorant',serif;font-style:italic;font-size:1rem;color:var(--muted)}
+  .contact-form{max-width:520px;margin:0 auto 1.8rem;display:flex;flex-direction:column;gap:.9rem;text-align:left}
+  .field-row{display:flex;gap:.9rem;flex-wrap:wrap}
+  .field-row input{flex:1;min-width:180px}
+  .contact-form input,.contact-form textarea{
+    width:100%;font-family:'EB Garamond',serif;font-size:1rem;color:var(--mist);
+    background:rgba(255,255,255,.03);border:1px solid rgba(233,195,107,.3);border-radius:12px;
+    padding:.85rem 1rem;transition:border-color .25s,background .25s;resize:vertical}
+  .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(169,143,176,.7)}
+  .contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--gold);background:rgba(233,195,107,.06)}
+  .form-send{cursor:pointer;border:none;align-self:center;margin-top:.3rem}
+  .form-status{text-align:center;font-family:'Cormorant',serif;font-style:italic;font-size:1.05rem;color:var(--gold-soft);min-height:1.2em;margin-top:.4rem}
 
   footer{position:relative;z-index:2;text-align:center;padding:3rem 1.5rem;border-top:1px solid rgba(233,195,107,.15)}
   footer .mark{font-family:'Cormorant',serif;font-style:italic;font-size:1.3rem;color:var(--gold)}
@@ -258,7 +269,7 @@
       </p>
       <div class="cta-row">
         <a href="#work" class="btn btn-primary">View the work</a>
-        <a href="mailto:Katstorey91@gmail.com" class="btn btn-ghost">Get in touch</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
     </div>
 
@@ -307,8 +318,18 @@
     <div class="ornament">✦</div>
     <h2>Let's tell your story</h2>
     <p>Have a brand or a milestone you want brought to life? <em>I'd love to hear about it.</em></p>
+
+    <form class="contact-form" action="https://formspree.io/f/mojgpkzd" method="POST">
+      <div class="field-row">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+      </div>
+      <textarea name="message" rows="4" placeholder="Tell me about your brand or event…" required></textarea>
+      <button type="submit" class="btn btn-primary form-send">Send message</button>
+      <p class="form-status" aria-live="polite"></p>
+    </form>
+
     <div class="contact-row">
-      <a href="mailto:Katstorey91@gmail.com" class="btn btn-primary">Start a conversation</a>
       <a href="https://www.linkedin.com/in/katrina-storey" target="_blank" rel="noopener" class="btn btn-ghost">Connect on LinkedIn</a>
     </div>
     <p class="contact-note">Every inquiry gets a reply within a day or two.</p>
@@ -359,6 +380,31 @@
         flies.forEach(o=>{o.el.style.transition='none';o.el.style.transform='none';o.el.style.left=(Math.random()*100)+'vw';o.el.style.top=(Math.random()*pageH)+'px';o.el.style.setProperty('--dx',(Math.random()*80-30)+'px');o.el.style.setProperty('--dy',(-50-Math.random()*80)+'px');const dur=7+Math.random()*8,delay=Math.random()*4;void o.el.offsetWidth;o.el.style.animation=`flit ${dur}s ease-in-out ${delay}s infinite`;});
         for(let i=0;i<24;i++){const f=document.createElement('span');f.className='fly';f.style.left=(Math.random()*100)+'vw';f.style.top=(Math.random()*pageH)+'px';f.style.opacity=(.6+Math.random()*.4).toFixed(2);f.style.setProperty('--dx',(Math.random()*80-30)+'px');f.style.setProperty('--dy',(-50-Math.random()*80)+'px');const dur=7+Math.random()*8,delay=Math.random()*6;f.style.animation=`flit ${dur}s ease-in-out ${delay}s infinite`;layer.appendChild(f);}
       },4000);
+    })();
+  </script>
+  <script>
+    // contact form — submit via fetch, show inline status, no page redirect
+    (function(){
+      const form=document.querySelector('.contact-form');
+      if(!form) return;
+      const status=form.querySelector('.form-status');
+      const btn=form.querySelector('.form-send');
+      form.addEventListener('submit',async function(e){
+        e.preventDefault();
+        btn.disabled=true; status.textContent='Sending…';
+        try{
+          const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+          if(res.ok){
+            form.reset();
+            status.textContent='Thank you — your message is on its way. I\u2019ll be in touch soon.';
+          }else{
+            status.textContent='Something went wrong. Please email Katstorey91@gmail.com directly.';
+          }
+        }catch(err){
+          status.textContent='Something went wrong. Please email Katstorey91@gmail.com directly.';
+        }
+        btn.disabled=false;
+      });
     })();
   </script>
 </body>
