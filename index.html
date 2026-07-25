@@ -99,6 +99,16 @@
     background:linear-gradient(120deg,var(--gold),var(--gold-soft));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   /* the name glows like the STORIES sign */
   .name .glow-text{text-shadow:0 0 24px rgba(233,195,107,.55),0 0 48px rgba(233,195,107,.25)}
+  .name .shim{
+    background:linear-gradient(100deg,#fff 0%,#fff 40%,var(--gold-soft) 50%,#fff 60%,#fff 100%);
+    background-size:250% 100%;background-position:150% 0;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+    animation:shimmer 5s ease-in-out 4.6s infinite}
+  @keyframes shimmer{
+    0%{background-position:150% 0}
+    22%{background-position:-50% 0}
+    100%{background-position:-50% 0}
+  }
   .name .l2::after{content:"";position:absolute;left:0;bottom:.02em;height:2px;width:100%;background:linear-gradient(90deg,var(--gold),var(--orchid),transparent);box-shadow:0 0 12px rgba(233,195,107,.6);transform:scaleX(0);transform-origin:left;animation:draw 1.3s cubic-bezier(.7,0,.2,1) 3.6s forwards}
   @keyframes bloom{to{opacity:1;filter:blur(0);transform:translateY(0)}}
   @keyframes draw{to{transform:scaleX(1)}}
@@ -132,6 +142,8 @@
   .about .ornament{color:var(--gold);letter-spacing:.4rem;font-size:1.1rem;margin-bottom:1.2rem;text-shadow:0 0 14px rgba(233,195,107,.45)}
   .about p{font-family:'Cormorant',serif;font-size:clamp(1.35rem,3vw,1.85rem);line-height:1.5;color:var(--mist);font-weight:300}
   .about p em{font-style:italic;color:var(--gold-soft)}
+  .about .about-body{font-family:'EB Garamond',serif;font-size:1.08rem;line-height:1.8;color:var(--muted);max-width:640px;margin:1.6rem auto 0}
+  .about .about-body em{font-family:'Cormorant',serif;font-style:italic;font-size:1.15em;color:var(--gold-soft)}
 
   /* scroll reveal */
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
@@ -144,6 +156,52 @@
   .work-head p{font-family:'Cormorant',serif;font-size:1.05rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:3rem}
   .soon{font-family:'Cormorant',serif;font-style:italic;font-weight:400;font-size:clamp(1.7rem,4vw,2.6rem);color:var(--gold-soft);padding:4rem 1.5rem;border-radius:20px;border:1px solid rgba(233,195,107,.28);background:linear-gradient(160deg,rgba(47,211,208,.06),rgba(200,56,168,.06));text-shadow:0 0 20px rgba(233,195,107,.3)}
   .soon small{display:block;font-family:'EB Garamond';font-style:italic;font-size:1rem;color:var(--muted);margin-top:.8rem;letter-spacing:.02em;text-shadow:none}
+
+  /* case study card */
+  .case{position:relative;max-width:940px;margin:0 auto;border:1px solid rgba(233,195,107,.32);border-radius:22px;overflow:hidden;text-align:left;
+    background:
+      radial-gradient(60% 45% at 20% 12%, rgba(243,221,160,.16), transparent 60%),
+      radial-gradient(50% 40% at 85% 30%, rgba(228,168,200,.14), transparent 62%),
+      radial-gradient(70% 60% at 60% 100%, rgba(233,195,107,.1), transparent 65%),
+      linear-gradient(160deg,#171019,#0E0912)}
+  .case::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background:
+      radial-gradient(4px 4px at 15% 20%, rgba(243,221,160,.7), transparent),
+      radial-gradient(6px 6px at 78% 15%, rgba(243,221,160,.5), transparent),
+      radial-gradient(3px 3px at 40% 70%, rgba(228,168,200,.6), transparent),
+      radial-gradient(5px 5px at 88% 62%, rgba(243,221,160,.45), transparent),
+      radial-gradient(4px 4px at 25% 88%, rgba(233,195,107,.5), transparent),
+      radial-gradient(7px 7px at 62% 40%, rgba(243,221,160,.3), transparent);
+    filter:blur(1px)}
+  .case > *{position:relative;z-index:1}
+  .case-top{padding:2.4rem clamp(1.5rem,4vw,2.8rem) 1.6rem;border-bottom:1px solid rgba(233,195,107,.15)}
+  .case-tag{font-family:'Cormorant',serif;font-size:.95rem;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:.7rem}
+  .case-title{font-family:'Cormorant',serif;font-weight:400;font-size:clamp(1.8rem,4vw,2.6rem);color:#fff;margin-bottom:.4rem}
+  .case-sub{font-family:'Cormorant',serif;font-style:italic;font-size:1.15rem;color:var(--rose)}
+  .case-body{padding:2rem clamp(1.5rem,4vw,2.8rem) 2.4rem;display:grid;gap:1.5rem}
+  .case-block h4{font-family:'Cormorant',serif;font-size:1.15rem;letter-spacing:.06em;color:var(--gold);margin-bottom:.35rem;text-transform:uppercase}
+  .case-block p{font-size:1.02rem;color:var(--muted);line-height:1.7}
+  /* staggered reveal of each case block */
+  .case-body .case-block,.case-body .case-note{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .case.in .case-body .case-block,.case.in .case-body .case-note{opacity:1;transform:none}
+  .case.in .case-body .case-block:nth-child(1){transition-delay:.15s}
+  .case.in .case-body .case-block:nth-child(2){transition-delay:.35s}
+  .case.in .case-body .case-block:nth-child(3){transition-delay:.55s}
+  .case.in .case-body .case-block:nth-child(4){transition-delay:.75s}
+  .case.in .case-body .case-note{transition-delay:.95s}
+  /* hover lift + glow intensify */
+  .case{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease,border-color .5s ease}
+  .case:hover{transform:translateY(-6px);border-color:rgba(233,195,107,.55);box-shadow:0 30px 70px -30px rgba(0,0,0,.9),0 0 60px -20px rgba(233,195,107,.4)}
+  .case-note{font-family:'Cormorant',serif;font-style:italic;font-size:1rem;color:var(--muted);text-align:center;margin-top:2rem;opacity:.8}
+
+  /* contact */
+  .contact{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:4rem clamp(1.5rem,5vw,4rem) 6rem;text-align:center}
+  .contact .ornament{color:var(--gold);letter-spacing:.4rem;font-size:1.1rem;margin-bottom:1.2rem;text-shadow:0 0 14px rgba(233,195,107,.45)}
+  .contact h2{font-family:'Cormorant',serif;font-weight:400;font-size:clamp(2rem,4.5vw,3rem);color:#fff;margin-bottom:.8rem}
+  .contact > p{font-size:1.12rem;color:var(--muted);max-width:30rem;margin:0 auto 2rem}
+  .contact > p em{font-family:'Cormorant',serif;font-style:italic;color:var(--gold-soft)}
+  .contact-row{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.4rem}
+  .contact-note{font-family:'Cormorant',serif;font-style:italic;font-size:1rem;color:var(--muted)}
 
   footer{position:relative;z-index:2;text-align:center;padding:3rem 1.5rem;border-top:1px solid rgba(233,195,107,.15)}
   footer .mark{font-family:'Cormorant',serif;font-style:italic;font-size:1.3rem;color:var(--gold)}
@@ -164,6 +222,7 @@
     .eyebrow,.tagline,.intro,.cta-row,.portrait-wrap{opacity:1}
     .name .l2::after{transform:scaleX(1)}
     .portrait-frame{animation:none!important}
+    .name .shim{animation:none!important;-webkit-text-fill-color:#fff;color:#fff}
     .fly{display:none}
   }
 </style>
@@ -177,6 +236,7 @@
     <div class="mark">The <em>Storey</em> Studio</div>
     <div class="nav-links">
       <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
       <a href="https://www.linkedin.com/in/katrina-storey" target="_blank" rel="noopener" class="linkedin-btn">LinkedIn</a>
     </div>
   </nav>
@@ -186,7 +246,7 @@
       <div class="eyebrow">Brand &amp; Marketing Communications</div>
       <h1 class="name">
         <span class="line l1">Katrina</span>
-        <span class="line l2 glow-text">Sto<em>rey</em></span>
+        <span class="line l2 glow-text"><span class="shim">Sto</span><em>rey</em></span>
       </h1>
       <p class="tagline">The Storey Studio</p>
       <p class="intro">
@@ -211,9 +271,18 @@
   <section class="about reveal">
     <div class="ornament">✦ ✦ ✦</div>
     <p>
-      I'm a brand and marketing communications specialist who believes every
-      brand carries a <em>story worth telling</em>. From strategy to design, I help
-      them find their voice and share it with the world.
+      Every brand begins the same way a good story does — with someone who has
+      something to say and isn't quite sure how to say it. That's where I come in.
+    </p>
+    <p class="about-body">
+      I'm <em>Katrina Storey</em>, a brand and marketing communications specialist.
+      I've built a brand from nothing, run the campaigns and social media that gave
+      it a voice, and trained teams to carry that voice across everything they touched.
+      Somewhere along the way I learned that people don't fall for logos or taglines —
+      they fall for stories. So that's what I make. I help brands find the thread of
+      theirs, dress it in a look worth remembering, and tell it in a way that makes
+      people lean in. Strategy, design, and a little bit of magic. Every story
+      deserves to be told well.
     </p>
   </section>
 
@@ -223,7 +292,48 @@
       <h2>Selected Work</h2>
       <p>Campaigns &amp; Brand Design</p>
     </div>
-    <div class="soon reveal">Coming soon…<small>New tales are being written.</small></div>
+    <div class="case reveal">
+      <div class="case-top">
+        <div class="case-tag">Concept Project · Brand Identity</div>
+        <div class="case-title">The Storey Society</div>
+        <div class="case-sub">A luxury identity for a milestone-event styling brand.</div>
+      </div>
+      <div class="case-body">
+        <div class="case-block">
+          <h4>The Challenge</h4>
+          <p>Design a brand for a high-end event stylist serving a trend-aware millennial
+          clientele, one that feels exclusive and editorial without tipping into stuffy or dated.</p>
+        </div>
+        <div class="case-block">
+          <h4>The Approach</h4>
+          <p>I built the identity around the idea of belonging to something rare: a "society."
+          A champagne-and-blush palette signals soft luxury, while a high-contrast serif and a
+          delicate emblem keep it refined and current.</p>
+        </div>
+        <div class="case-block">
+          <h4>The System</h4>
+          <p>A full suite: primary logo, lettermark for small spaces, and a standalone emblem,
+          so the brand holds together everywhere from a save-the-date to a social avatar.</p>
+        </div>
+        <div class="case-block">
+          <h4>The Thinking</h4>
+          <p>Luxury lives in restraint. Every choice, from the spacing to the single gold accent
+          to the quiet florals, was made to feel expensive by leaving room to breathe.</p>
+        </div>
+        <p class="case-note">Full visuals coming soon. This case study is being built out.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact reveal" id="contact">
+    <div class="ornament">✦</div>
+    <h2>Let's tell your story</h2>
+    <p>Have a brand or a milestone you want brought to life? <em>I'd love to hear about it.</em></p>
+    <div class="contact-row">
+      <a href="mailto:Katstorey91@gmail.com" class="btn btn-primary">Start a conversation</a>
+      <a href="https://www.linkedin.com/in/katrina-storey" target="_blank" rel="noopener" class="btn btn-ghost">Connect on LinkedIn</a>
+    </div>
+    <p class="contact-note">Every inquiry gets a reply within a day or two.</p>
   </section>
 
   <footer>
