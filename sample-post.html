@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/gate.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample Post</title>
+<style>
+  :root {
+    --ink: #0d0f14;
+    --ink-soft: #161a22;
+    --paper: #f6f4f0;
+    --muted: #9aa3b5;
+    --pink: #f7a8d4;
+    --lime: #c9f26b;
+    --sun: #ffb36b;
+    --line: rgba(255,255,255,.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+  body {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    background: var(--ink);
+    color: var(--paper);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 6vw; border-bottom: 1px solid var(--line);
+    font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .topbar .brand { font-weight: 800; letter-spacing: .14em; }
+  .topbar .brand span { color: var(--pink); }
+  .topbar a.back { text-decoration: none; color: var(--muted); font-weight: 700; }
+  .topbar a.back:hover { color: var(--lime); }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 90px 6vw 60px; position: relative; }
+  .hero .pill {
+    display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink); background: var(--lime);
+    padding: 7px 14px; border-radius: 999px; transform: rotate(-2deg);
+  }
+  .hero h1 {
+    font-size: clamp(64px, 14vw, 180px); line-height: .88; font-weight: 900;
+    letter-spacing: -.04em; text-transform: uppercase; margin-top: 26px;
+  }
+  .hero h1 .outline {
+    color: transparent; -webkit-text-stroke: 2px var(--pink);
+  }
+  .hero .sub {
+    margin-top: 26px; max-width: 46ch; color: var(--muted); font-size: 17px;
+  }
+
+  /* ---------- ticker ---------- */
+  .ticker {
+    overflow: hidden; white-space: nowrap; border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line); background: var(--pink); color: var(--ink);
+    padding: 14px 0; font-weight: 900; font-size: 18px; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .ticker .track { display: inline-block; animation: slide 22s linear infinite; }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- gallery ---------- */
+  .work { padding: 70px 6vw 40px; }
+  .work-head {
+    display: flex; justify-content: space-between; align-items: end; gap: 20px;
+    margin-bottom: 36px; flex-wrap: wrap;
+  }
+  .work-head h2 { font-size: clamp(32px, 5vw, 56px); font-weight: 900; letter-spacing: -.03em; text-transform: uppercase; line-height: .95; }
+  .work-head p { color: var(--muted); max-width: 36ch; font-size: 15px; }
+
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; }
+  .card {
+    position: relative; background: var(--ink-soft); border: 1px solid var(--line);
+    border-radius: 22px; overflow: hidden; transition: transform .35s ease, border-color .35s ease;
+  }
+  .card:hover { transform: translateY(-6px) rotate(-.3deg); border-color: var(--lime); }
+  .card.w-12 { grid-column: span 12; }
+  .card.w-7  { grid-column: span 7; }
+  .card.w-5  { grid-column: span 5; }
+  .card.w-6  { grid-column: span 6; }
+  .media { overflow: hidden; background: #000; }
+  .media img, .media video { width: 100%; height: auto; display: block; transition: transform .6s ease; }
+  .card:hover .media img, .card:hover .media video { transform: scale(1.03); }
+
+  .tag {
+    position: absolute; top: 16px; left: 16px; z-index: 2;
+    font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+    background: var(--sun); color: var(--ink); padding: 6px 11px; border-radius: 999px;
+  }
+  .tag.lime { background: var(--lime); }
+  .tag.pink { background: var(--pink); }
+
+  .caption { padding: 22px 24px 26px; }
+  .caption h3 { font-size: 20px; font-weight: 800; letter-spacing: -.01em; margin-bottom: 6px; }
+  .caption p { color: var(--muted); font-size: 14px; }
+  .caption a.file {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
+    font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink); background: var(--paper);
+    padding: 10px 16px; border-radius: 999px; transition: background .2s ease;
+  }
+  .caption a.file:hover { background: var(--lime); }
+
+  .credits {
+    padding: 0 6vw 90px; color: var(--muted); font-size: 13px; letter-spacing: .04em;
+  }
+
+  @media (max-width: 800px) {
+    .card.w-7, .card.w-5, .card.w-6 { grid-column: span 12; }
+    .topbar { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">The <span>Storey</span> Studio</div>
+  <a class="back" href="index.html">&larr; Back to portfolio</a>
+</header>
+
+<section class="hero">
+  <span class="pill">Sample work</span>
+  <h1>Sample<br><span class="outline">Post</span></h1>
+  <p class="sub">Brand banners, a motion piece, and print-ready layouts. Built to stop the scroll and make the next click obvious.</p>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    Social banners &middot; Motion &middot; Newsletters &middot; Page redesigns &middot; Brand marks &middot;
+    Social banners &middot; Motion &middot; Newsletters &middot; Page redesigns &middot; Brand marks &middot;
+    Social banners &middot; Motion &middot; Newsletters &middot; Page redesigns &middot; Brand marks &middot;
+    Social banners &middot; Motion &middot; Newsletters &middot; Page redesigns &middot; Brand marks &middot;
+  </div>
+</div>
+
+<section class="work">
+  <div class="work-head">
+    <h2>Selected<br>work</h2>
+    <p>Five pieces across three clients. Each one built for a specific job: sell a drop, fill a bar on game day, or win a construction bid.</p>
+  </div>
+
+  <div class="grid">
+    <article class="card w-12">
+      <span class="tag pink">Social banner</span>
+      <div class="media">
+        <img src="sample-work/twin-posh-new-arrivals.jpg" alt="Twin Posh New Arrivals shop-now banner with product photos" loading="lazy">
+      </div>
+      <div class="caption">
+        <h3>Twin Posh: New Arrivals</h3>
+        <p>Social banner for a fashion boutique's new drop, with product photos and a shop-now call to action.</p>
+      </div>
+    </article>
+
+    <article class="card w-5">
+      <span class="tag lime">Logo</span>
+      <div class="media">
+        <img src="sample-work/twin-posh-logo.jpg" alt="Twin Posh Fashion Boutique logo" loading="lazy">
+      </div>
+      <div class="caption">
+        <h3>Twin Posh: Logo</h3>
+        <p>Brand mark used across the boutique's storefront and social channels.</p>
+      </div>
+    </article>
+
+    <article class="card w-7">
+      <span class="tag">Motion</span>
+      <div class="media">
+        <video controls playsinline preload="metadata" poster="sample-work/prato-850-game-day-poster.jpg">
+          <source src="sample-work/prato-850-game-day.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="caption">
+        <h3>Prato 850: Game Day</h3>
+        <p>A short looping banner promoting game-day viewing, with bar photos and the Prato 850 wordmark.</p>
+      </div>
+    </article>
+
+    <article class="card w-12">
+      <span class="tag lime">Newsletter</span>
+      <div class="media">
+        <img src="sample-work/setauket-newsletter-preview.jpg" alt="Setauket Contracting commercial construction newsletter, first page" loading="lazy">
+      </div>
+      <div class="caption">
+        <h3>Setauket Contracting: Newsletter</h3>
+        <p>One-page commercial construction update with project highlights for Bearings Limited and Jesco Lighting.</p>
+      </div>
+    </article>
+
+    <article class="card w-12">
+      <span class="tag pink">Page redesign</span>
+      <div class="media">
+        <img src="sample-work/setauket-page-redesign-preview.jpg" alt="Setauket Contracting page redesign with image style, project portfolio layout" loading="lazy">
+      </div>
+      <div class="caption">
+        <h3>Setauket Contracting: Page Redesign</h3>
+        <p>Redesigned project page using the company's green and grey palette, with the Harbor Park Drive portfolio.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<p class="credits">Work shown with permission from each client.</p>
+
+</body>
+</html>
