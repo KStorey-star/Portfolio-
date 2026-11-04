@@ -119,6 +119,20 @@
     .card.w-7, .card.w-5, .card.w-6 { grid-column: span 12; }
     .topbar { font-size: 11px; }
   }
+
+  /* social content */
+  .social { padding: 0 6vw 40px; }
+  .social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .reel { position: relative; background: var(--ink-soft); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; transition: transform .35s ease, border-color .35s ease; }
+  .reel:hover { transform: translateY(-6px); border-color: var(--pink); }
+  .reel video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; display: block; background: #000; }
+  .reel .caption { padding: 16px 18px 18px; }
+  .reel .caption h3 { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .reel .caption p { color: var(--muted); font-size: 13px; }
+  .stills { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+  .stills .card { grid-column: auto; }
+  @media (max-width: 900px) { .social-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .social-grid, .stills { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -144,11 +158,6 @@
 </div>
 
 <section class="work">
-  <div class="work-head">
-    <h2>Selected<br>work</h2>
-    <p>Five pieces across three clients. Each one built for a specific job: sell a drop, fill a bar on game day, or win a construction bid.</p>
-  </div>
-
   <div class="grid">
     <article class="card w-12">
       <span class="tag pink">Social banner</span>
@@ -205,6 +214,48 @@
         <h3>Setauket Contracting: Page Redesign</h3>
         <p>Redesigned project page using the company's green and grey palette, with the Harbor Park Drive portfolio.</p>
       </div>
+    </article>
+  </div>
+</section>
+
+
+<section class="social">
+  <div class="work-head">
+    <h2>Social<br>content</h2>
+    <p>Reels and stills built for the feed: outfit fits, a this-or-that poll, a shop-now post, and a product close-up.</p>
+  </div>
+  <div class="social-grid">
+    <article class="reel">
+      <video controls playsinline preload="metadata" poster="sample-work/content/fit-check-reel-poster.jpg">
+        <source src="sample-work/content/fit-check-reel.mp4" type="video/mp4">
+      </video>
+      <div class="caption"><h3>Fit-check reel</h3><p>A fast montage of outfit looks, tiled to show the range in one scroll.</p></div>
+    </article>
+    <article class="reel">
+      <video controls playsinline preload="metadata" poster="sample-work/content/this-or-that-poll-poster.jpg">
+        <source src="sample-work/content/this-or-that-poll.mp4" type="video/mp4">
+      </video>
+      <div class="caption"><h3>This or That poll</h3><p>Lilac Dreams or Winter Bae: a two-outfit vote that asks the audience to pick.</p></div>
+    </article>
+    <article class="reel">
+      <video controls playsinline preload="metadata" poster="sample-work/content/twinning-moment-reel-poster.jpg">
+        <source src="sample-work/content/twinning-moment-reel.mp4" type="video/mp4">
+      </video>
+      <div class="caption"><h3>"It's called a twinning moment"</h3><p>An Instagram-style post reel closing on a Shop New Arrivals call to action.</p></div>
+    </article>
+    <article class="reel">
+      <video controls playsinline preload="metadata" poster="sample-work/content/velour-product-reel-poster.jpg">
+        <source src="sample-work/content/velour-product-reel.mp4" type="video/mp4">
+      </video>
+      <div class="caption"><h3>"We love velour!"</h3><p>A product close-up in a phone-style frame, with a shop link on screen.</p></div>
+    </article>
+  </div>
+
+  <div class="stills">
+    <article class="card">
+      <span class="tag pink">Photo</span>
+      <div class="media"><img src="sample-work/content/in-store-photo.jpg" alt="Customers at the TwinPosh boutique under the neon sign" loading="lazy"></div>
+      <div class="caption"><h3>In-store community photo</h3><p>Real shoppers under the boutique's neon sign, used to show the community behind the brand.</p></div>
     </article>
   </div>
 </section>
